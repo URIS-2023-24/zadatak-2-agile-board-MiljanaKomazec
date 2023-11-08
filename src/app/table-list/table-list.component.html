@@ -48,11 +48,11 @@
                                         <td>
                                           <!-- Svaka akcija ce predstavljati posebno dugme - stil dugmeta odgovara template-u koji koristimo -->
                                           <!-- Koristi se klasa material-icons koja navodjenjem kljucne reci prepoznaje koji dizajn dugmeta da se iskoristi -->
-                                          <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                          <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="editTask(task)">
                                               <i class="material-icons">edit</i>
                                               <div class="ripple-container"></div>
                                             </button>
-                                            <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                            <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon" (click)="deleteTask(task.id)">
                                               <i class="material-icons">delete</i>
                                               <div class="ripple-container"></div>
                                             </button>
