@@ -9,8 +9,12 @@
     <input placeholder="Description" matInput [(ngModel)]="data.description">
     </mat-form-field><br>
     <mat-form-field>
-        <input placeholder="Assignee" matInput [(ngModel)]="data.assignee">
-
+        <mat-label>Assignee</mat-label>
+        <mat-select [(ngModel)]="data.assignee">
+            <mat-option *ngFor="let contributor of data.contributors" [value]="contributor">
+              {{contributor.userName}}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
 </div>
 <div mat-dialog-actions>

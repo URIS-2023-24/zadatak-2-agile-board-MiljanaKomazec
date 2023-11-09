@@ -28,12 +28,22 @@ export class TableListComponent implements OnInit {
 
   
   startSubscription() {
-    this.taskService.getTasks().subscribe(res => {
-      this.tasks = res;
-    });
 
     this.contributorsService.getContributors().subscribe(res => {
       this.contributors = res;
+    });
+
+    this.taskService.getTasks().subscribe(res => {
+      res.forEach( item => {
+        if (item.assignee !== "") {
+          const contributor = this.contributors.find( con => con.userName == item.assignee );
+          if (contributor) {
+            this.tasks.push({ id: item.id, title: item.title, description: item.description, assignee: contributor });
+          }
+        } else {
+          this.tasks.push({ id: item.id, title: item.title, description: item.description, assignee: new Contributor() });
+        }
+      })
     });
   }
 
@@ -46,7 +56,7 @@ export class TableListComponent implements OnInit {
   editTask(task: Task) {
     const dialog = this.dialog.open(TableListDialogComponent, {
       width: "600px", 
-      data: { tittle: task.title, description: task.description, assignee: task.assignee}
+      data: { title: task.title, description: task.description, assignee: task.assignee, contributors: this.contributors}
     })
 
     dialog.afterClosed().subscribe(result => {
